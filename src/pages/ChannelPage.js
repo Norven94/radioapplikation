@@ -32,7 +32,6 @@ export default function ChannelPage(props) {
 
     return (
         <div className="channelPage">
-            <h2>{channelSchedule.length !== 0 ? channelSchedule[0].channel.name : ""}</h2>
             {content}
         </div>
     )

@@ -19,7 +19,7 @@ export default function Channels () {
             {channels.map((channel, i) => {
                 return (
                     <div className="channelContainer" onClick={() => handleClick(channel.id)}>
-                    <ChannelCard key={i} channel={channel} />
+                        <ChannelCard key={i} channel={channel} />
                     </div>
                 )                
             })}            
