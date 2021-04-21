@@ -1,0 +1,42 @@
+.categoryBox {
+    display: inline-block;
+    background-color: darkcyan;
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 6px;
+}
+
+.programsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px;    
+}
+
+.programBox {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 10px;
+    border-radius: 6px;
+    box-shadow: 4px 4px 5px rgba(90, 90, 90, 0.219);
+}
+
+.programBox img {
+    width: 100%;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.programDesc {
+    margin: auto 0 auto 8px;
+
+}
+
+.programDesc h3 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.programDesc p {
+    font-size: 10px;
+    margin: 0;
+}

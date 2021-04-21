@@ -8,7 +8,8 @@ const ChannelsProvider = (props) => {
 
     const fetchAllChannels = async () => {
         let channelsToGet = await fetch("/api/v1/channels");        
-        channelsToGet = await channelsToGet.json();                 
+        channelsToGet = await channelsToGet.json();  
+                       
         setChannels(channelsToGet.channels)
     } 
 
