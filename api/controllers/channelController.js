@@ -27,14 +27,13 @@ const getChannelSchedule = async (req, res) => {
   );
   channelSchedule = await channelSchedule.json();
 
-  // channelSchedule.schedule = channelSchedule.schedule.map((p) => {
-  //   console.log(new Date(p.starttimeutc));
-  //   return {
-  //     ...p,
-  //     starttimeutc: utils.convertToDateObject(p.starttimeutc),
-  //     endtimeutc: utils.convertToDateObject(p.endtimeutc),
-  //   };
-  // });
+  channelSchedule.schedule = channelSchedule.schedule.map((p) => {
+    return {
+      ...p,
+      starttimeutc: utils.convertToDateObject(p.starttimeutc),
+      endtimeutc: utils.convertToDateObject(p.endtimeutc),
+    };
+  });
 
   res.json(channelSchedule.schedule);
 };
