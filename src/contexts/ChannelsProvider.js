@@ -17,8 +17,9 @@ const ChannelsProvider = (props) => {
         fetchAllChannels();              
     },[]);
 
-    const getChannelScheduleById = async (channelId) => {
-        let channel = await fetch(`/api/v1/channels/schedule/${channelId}`);
+    const getChannelScheduleById = async (channelId, startDate) => {
+        let channel = await fetch(`/api/v1/channels/schedule/${channelId}/${startDate}`);
+        console.log(channel);
         channel = await channel.json();
         console.log(channel);
         setChannelSchedule(channel);
