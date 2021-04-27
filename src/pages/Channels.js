@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ChannelsContext } from "../contexts/ChannelsProvider"
+import { LoginContext } from "../contexts/LoginProvider"
 import ChannelCard from "../components/ChannelCard"
 import styles from "../css/Channels.module.css"
 import { useHistory } from "react-router";
@@ -7,6 +8,7 @@ import { useHistory } from "react-router";
 export default function Channels () {
     const history = useHistory()
     const { channels } = useContext(ChannelsContext);
+    const { loggedInUser } = useContext(LoginContext)
 
     const handleClick = (channelId) => {
         history.push(`/channels/${channelId}`);

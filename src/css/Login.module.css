@@ -1,0 +1,50 @@
+.login {
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    padding: 10px 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.passWrapper {
+    position: relative;
+    height: 40px;    
+}
+  
+i {
+    position: absolute;
+    right: -4%;
+    top: 48%;
+}
+i:hover {
+    color: #00fcb6;
+    cursor: pointer;
+}
+
+.btnLogin {
+    
+    display: inline;
+    color: white;
+    background-color: green;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    width: 120px;
+    margin: 20px 20px 0 0;
+}
+
+button {    
+    display: inline;
+    color: blue;    
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid blue;
+    cursor: pointer;
+}
+  
