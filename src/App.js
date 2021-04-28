@@ -10,29 +10,32 @@ import ChannelPage from "./pages/ChannelPage"
 import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
 import GuardedRoute from "./components/GuardedRoute"
+import ProfileProvider from "./contexts/ProfileProvider";
 
 
 function App() {
   const [isAuth, setIsAuth] = useState(null);
-  const state = {isAuth, setIsAuth};
+  const state = { isAuth, setIsAuth };
 
   return (
     <div className="App">
       <LoginProvider value={state}>
         <ChannelsProvider>
           <ProgramsProvider>
-            <BrowserRouter>            
+            <ProfileProvider>
+              <BrowserRouter>
                 <Switch>
-                  <Route exact path="/login" component={LoginPage} />  
+                  <Route exact path="/login" component={LoginPage} />
                   <>
-                  <Navbar />              
-                  <GuardedRoute exact path="/" component={Channels} auth={isAuth} />      
-                  <GuardedRoute exact path="/profile" component={ProfilePage} auth={isAuth}/>          
-                  <GuardedRoute exact path="/program" component={Programs} auth={isAuth}/>
-                  <GuardedRoute exact path="/channels/:channelId" component={ChannelPage} auth={isAuth}/>
+                    <Navbar />
+                    <GuardedRoute exact path="/" component={Channels} auth={isAuth} />
+                    <GuardedRoute exact path="/profile" component={ProfilePage} auth={isAuth} />
+                    <GuardedRoute exact path="/program" component={Programs} auth={isAuth} />
+                    <GuardedRoute exact path="/channels/:channelId" component={ChannelPage} auth={isAuth} />
                   </>
                 </Switch>
-            </BrowserRouter>
+              </BrowserRouter>
+            </ProfileProvider>
           </ProgramsProvider>
         </ChannelsProvider>
       </LoginProvider>

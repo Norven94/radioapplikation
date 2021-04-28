@@ -65,6 +65,7 @@ const LoginProvider = (props) => {
         logoutUser,
         loginState, 
         setLoginState,
+        currentUser
     };    
 
     return (
