@@ -9,15 +9,13 @@ const LoginProvider = (props) => {
     const checkUser = async () => {
       let user = await fetch(`/api/v1/user/whoami`);
       user = await user.json();
-      console.log(user);
-      setCurrentUser(user)       
+      setCurrentUser(user)     
     }
 
     useEffect(() => {
       checkUser()
-      console.log(props.value.isAuth)
     },[])
-    
+
     const registerNewUser = async (newUser) => {
         let result = await fetch("/api/v1/user/register", {
           method: "POST",
@@ -27,7 +25,6 @@ const LoginProvider = (props) => {
           body: JSON.stringify(newUser),
         });
         result = await result.json();
-        console.log(result)
         if(result) {
           props.value.setIsAuth(true)
         }  

@@ -35,7 +35,7 @@ export default function Register () {
     }
 
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
+        setPassword(e.target.value);            
     }
 
     const handleCountyChange = (e) => {
@@ -50,13 +50,18 @@ export default function Register () {
             password,
             county
         };
-        let registerResult = await registerNewUser(newUser)
-        console.log(registerResult)
-        if (registerResult.success) {
-            history.push("/")
-        } else {
-            setErrorMessage(registerResult.error);
-        }
+        let validPassword = password.includes(password.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/))
+        if (!validPassword) {   
+            setErrorMessage("Lösenord måste innehålla minst 8 tecken samt minst en bokstav, siffra och specialtecken");
+        }  else {
+            let registerResult = await registerNewUser(newUser)
+            console.log(registerResult)
+            if (registerResult.success) {
+                history.push("/")
+            } else {
+                setErrorMessage(registerResult.error);
+            }
+        }        
     }
 
     let errorContent = ""
@@ -71,7 +76,7 @@ export default function Register () {
             <h1>Register</h1>
             {errorContent}
             <input type="text" placeholder="Användarnamn" onChange={handleUsernameChange}/>
-            <input type="text" placeholder="Email" onChange={handleEmailChange}/>
+            <input type="email" placeholder="Email" onChange={handleEmailChange}/>
             <div className={styles.passWrapper}>
                 <input type={passwordShown ? "text" : "password"} placeholder="Lösenord" onChange={handlePasswordChange}/>
                 <i onClick={togglePasswordVisiblity}>{eye}</i>
@@ -82,7 +87,7 @@ export default function Register () {
                 ))}
             </select>
             <button className={styles.btnRegister}>Register</button>
-            <button onClick={changeLoginState}>{loginState ? "Register" : "Login"}</button>
+            <button className={styles.btnExtra} onClick={changeLoginState}>{loginState ? "Register" : "Login"}</button>
         </form>
     )
 }

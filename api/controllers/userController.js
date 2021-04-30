@@ -2,6 +2,8 @@ const sqlite3 = require("sqlite3");
 const Encrypt = require("../Encrypt");
 const path = require("path");
 
+const utils = require("../core/utilities");
+
 const db = new sqlite3.Database(path.join(__dirname, "../../radioDB.db"));
 
 const whoami = (req, res) => {
@@ -50,22 +52,32 @@ const register = (req, res) => {
       res.status(400).json({ error: "User with that email already exists" });
       return;
     }
-    userToRegister.password = Encrypt.encrypt(userToRegister.password);
-    query = `INSERT INTO users (userName, email, password, county) VALUES ($userName, $email, $password, $county)`;
-    params = {
-      $userName: userToRegister.username,
-      $email: userToRegister.email,
-      $password: userToRegister.password,
-      $county: userToRegister.county
-    };
+    let validPassword = utils.checkPassword(userToRegister.password)
+    let validEmail = utils.checkEmail(userToRegister.email)
+    if (!validPassword) {
+      res.status(400).json({ error: "Password must contain atleast 8 characters with atleast one number and letter. It also needs a special character" });
+    }
+    else if (!validEmail) {
+      res.status(400).json({ error: "Email is not valid! example@example.com" });
+    }
+    else {
+      userToRegister.password = Encrypt.encrypt(userToRegister.password);
+      query = `INSERT INTO users (userName, email, password, county) VALUES ($userName, $email, $password, $county)`;
+      params = {
+        $userName: userToRegister.username,
+        $email: userToRegister.email,
+        $password: userToRegister.password,
+        $county: userToRegister.county
+      };
 
-    db.run(query, params, function (err) {
-      if (err) {
-        res.status(400).json({ error: err });
-        return;
-      }
-      res.json({ success: "User register successfull", lastID: this.lastID });
-    });
+      db.run(query, params, function (err) {
+        if (err) {
+          res.status(400).json({ error: err });
+          return;
+        }
+        res.json({ success: "User register successfull", lastID: this.lastID });
+      });
+    }
   });
 };
 

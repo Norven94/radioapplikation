@@ -52,7 +52,7 @@ export default function Login () {
                 <i onClick={togglePasswordVisiblity}>{eye}</i>
             </div>
             <button className={styles.btnLogin}>Login</button>
-            <button onClick={changeLoginState}>{loginState ? "Register" : "Login"}</button>
+            <button className={styles.btnExtra} onClick={changeLoginState}>{loginState ? "Register" : "Login"}</button>
         </form>
     )
 }

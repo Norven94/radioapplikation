@@ -9,7 +9,8 @@
     grid-template-columns: 20% 80%;
     margin: 10px;
     border-radius: 6px;
-    box-shadow: 4px 4px 5px rgba(90, 90, 90, 0.219);
+    background-color: #455a64;
+    position: relative;
 }
 
 .programBox img {
@@ -31,4 +32,12 @@
 .programDesc p {
     font-size: 10px;
     margin: 0;
+}
+
+.heartIcon {    
+    color: white;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 16px;
 }

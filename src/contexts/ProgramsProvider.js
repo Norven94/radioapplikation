@@ -4,15 +4,19 @@ export const ProgramsContext = createContext();
 
 const ProgramsProvider = (props) => {
     const [ programs, setPrograms] = useState(null)
+    const [ filteredPrograms, setFilteredPrograms] = useState(null)
     const [ categories, setCategories] = useState(null)
 
-    const fetchAllPrograms = async (channelId, catId) => {
-        console.log(channelId);
-        console.log(catId);
-        let programsToGet = await fetch(`/api/v1/programs/${channelId}/${catId}`);        
-        programsToGet = await programsToGet.json();  
-        console.log(programsToGet)                
+    const fetchAllPrograms = async () => {
+        let programsToGet = await fetch(`/api/v1/programs`);        
+        programsToGet = await programsToGet.json();               
         setPrograms(programsToGet.programs)
+    }
+
+    const fetchFilteredPrograms = async (channelId, catId) => {
+        let programsToGet = await fetch(`/api/v1/programs/${channelId}/${catId}`);        
+        programsToGet = await programsToGet.json();               
+        setFilteredPrograms(programsToGet.programs)
     }
     
     const fetchAllCategories = async () => {
@@ -22,13 +26,15 @@ const ProgramsProvider = (props) => {
     }
 
     useEffect(() => {          
-        fetchAllCategories();                    
+        fetchAllCategories();  
+        fetchAllPrograms();                        
     },[]);
 
     const values = {
         programs,
         categories,
-        fetchAllPrograms
+        fetchFilteredPrograms,
+        filteredPrograms
     };
 
     return (

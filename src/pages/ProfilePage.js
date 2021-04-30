@@ -1,6 +1,8 @@
 import { useEffect, useContext } from "react";
 import { ProfileContext } from "../contexts/ProfileProvider";
 import { LoginContext } from "../contexts/LoginProvider";
+import ChannelCard from "../components/ChannelCard";
+import ProgramCard from "../components/ProgramCard";
 
 export default function Profile () {
     const { favoritePrograms, fetchAllFavoritePrograms, favoriteChannels, fetchAllFavoriteChannels } = useContext(ProfileContext);
@@ -12,13 +14,12 @@ export default function Profile () {
             fetchAllFavoriteChannels(currentUser.id);
         }     
     },[currentUser])
-    
 
     let contentPrograms = "";
     if (favoritePrograms) {
         contentPrograms = (
-            <div>{favoritePrograms.map(program => (
-                <p key={program.id}>{program.name}</p>
+            <div>{favoritePrograms.map((program, i) => (
+                <ProgramCard key={i} program={program}/>
             ))}</div>
         );
     } else {
@@ -30,8 +31,8 @@ export default function Profile () {
     let contentChannels = "";
     if (favoriteChannels) {
         contentChannels = (
-            <div>{favoriteChannels.map(channel => (
-                <p key={channel.id}>{channel.name}</p>
+            <div>{favoriteChannels.map((channel,i) => (
+                <ChannelCard key={i} channel={channel}/>
             ))}</div>
         );
     } else {

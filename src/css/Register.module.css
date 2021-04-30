@@ -14,7 +14,7 @@ select {
     color: gray;
     padding: 10px 5px;
     margin-top: 20px;
-    width: 262px;
+    width: 100%;
     border-radius: 8px;
     border: 1px solid gray;
 }
@@ -25,22 +25,46 @@ select {
 }
   
 i {
+    color: #455a64;
     position: absolute;
     right: 4%;
     top: 48%;
+    transition: .3s;
 }
 i:hover {
-    color: #00fcb6;
+    color: #607179;
     cursor: pointer;
 }
 
 .btnRegister {
+    text-decoration: none;
     display: inline;
     color: white;
-    background-color: green;
+    background-color: #455a64;
     border: none;
     border-radius: 8px;
     padding: 10px 0;
-    width: 120px;
-    margin: 10px 20px 0 0;
+    width: 50%;
+    margin-top: 20px;
+    transition: .3s;
+}
+
+.btnRegister:hover {
+    background-color: #607179;
+}
+
+.btnExtra {    
+    display: inline;
+    color: white;    
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 10px 0;
+    width: 50%;
+    transition: .3s;
+}
+
+.btnExtra:hover {
+    color: #607179;  
 }

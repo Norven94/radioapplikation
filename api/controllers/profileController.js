@@ -35,7 +35,7 @@ const getFavoritePrograms = (req, res) => {
 const addFavoriteChannel = (req, res) => {
     //Check if channel already exists
     let query = `SELECT * FROM favoriteChannels WHERE channelId = $channelId`;
-    let params = { $channelId: req.body.channelId };
+    let params = { $channelId: req.body.channelsId };
     db.get(query, params, (err, channelExist) => {
         if (channelExist) {
             console.log("channel already exist in favoriteChannels table");
@@ -56,7 +56,7 @@ const addFavoriteChannel = (req, res) => {
             //If channel does not already exists, then first add it to the favoriteChannels table
             query = `INSERT INTO favoriteChannels (channelId, name) VALUES ($channelId, $name)`
             params = {
-                $channelId: req.body.channelId,
+                $channelId: req.body.channelsId,
                 $name: req.body.name
             }
             db.run(query, params, function (err) {
@@ -85,7 +85,7 @@ const addFavoriteChannel = (req, res) => {
 const addFavoriteProgram = (req, res) => {
     //Check if program already exists
     let query = `SELECT * FROM favoritePrograms WHERE programId = $programId`;
-    let params = { $programId: req.body.programId };
+    let params = { $programId: req.body.programsId };
     db.get(query, params, (err, programExist) => {
         if (programExist) {
             console.log("program already exist in favoritePrograms table");
@@ -106,7 +106,7 @@ const addFavoriteProgram = (req, res) => {
             //If program does not already exists, then first add it to the favoritePrograms table
             query = `INSERT INTO favoritePrograms (programId, name) VALUES ($programId, $name)`
             params = {
-                $programId: req.body.programId,
+                $programId: req.body.programsId,
                 $name: req.body.name
             }
             db.run(query, params, function (err) {

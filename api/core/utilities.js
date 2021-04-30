@@ -3,9 +3,18 @@ const convertToDateObject = (SRTimeString) => {
       parseInt(SRTimeString.replace(/[\/\(\)date]/gi, ""))
     ).toLocaleString();
   };
+
+  const checkPassword = (password) => {
+    return password.includes(password.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/));
+  };
+
+  const checkEmail = (email) => {
+    return email.includes(email.match(/^[\w\d\.\-]+\@[\w\d]+\.[\w\d]+$/));
+  };
   
-  // See the following link to an excellent regex site: https://regex101.com/
   
   module.exports = {
     convertToDateObject,
+    checkPassword,
+    checkEmail
   };

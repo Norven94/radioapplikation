@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { ProgramsContext } from "../contexts/ProgramsProvider"
 import { ChannelsContext } from "../contexts/ChannelsProvider"
-import styles from "../css/Programs.module.css"
+import styles from "../css/Programs.module.css";
+import ProgramCard from "../components/ProgramCard"
 
 export default function Programs() {
-    const { programs, categories, fetchAllPrograms } = useContext(ProgramsContext);
+    const { programs, categories, fetchFilteredPrograms, filteredPrograms } = useContext(ProgramsContext);
     const { channels } = useContext(ChannelsContext);
     const [category, setCategory] = useState("")
     const [channel, setChannel] = useState("")
@@ -22,8 +23,15 @@ export default function Programs() {
     },[])
 
     useEffect(() => {
-        fetchAllPrograms(channel, category);
+        fetchFilteredPrograms(channel, category);
     },[channel, category])
+
+    let contentPrograms = [];
+    if (filteredPrograms) {
+        contentPrograms = filteredPrograms
+    } else {
+        contentPrograms = programs
+    }
 
     let content = "";
     if (programs && categories && channels) {
@@ -46,15 +54,9 @@ export default function Programs() {
                     </select>
                 </div>
                 <div className={styles.programsContainer}>
-                    {programs.map(program => {
+                    {contentPrograms.map((program, i) => {
                         return (
-                            <div className={styles.programBox}>
-                                <img src={program.programimage}/>
-                                <div className={styles.programDesc}>
-                                    <h3>{program.name}</h3>
-                                    <p>{program.description}</p>
-                                </div>
-                            </div>
+                            <ProgramCard key={i} program={program} />                            
                         )
                     })}
                 </div>

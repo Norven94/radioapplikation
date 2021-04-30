@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { LoginContext } from "../contexts/LoginProvider"
+import styles from "../css/Navbar.module.css"
 
 export default function Navbar() {
     const history = useHistory()
@@ -9,7 +10,7 @@ export default function Navbar() {
 
     const renderLinks = () => {
         return links.map((link) => (
-        <Link key={link.name} to={link.url}>
+        <Link className={styles.link} key={link.name} to={link.url}>
             {link.name}
         </Link>
         ));
@@ -21,9 +22,9 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar">
+        <nav className={styles.navbar}>
             {renderLinks()}
-            <button onClick={logout}>Logout</button>
+            <button className={styles.btnLogout} onClick={logout}>Logout</button>
         </nav>
     )
 }
