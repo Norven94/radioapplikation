@@ -50,11 +50,21 @@ const LoginProvider = (props) => {
 
     const logoutUser = async () => {
       let user = await fetch(`/api/v1/user/logout`);
-      user = await user.json();
-      console.log(user);      
+      user = await user.json();    
       setCurrentUser(user)
       props.value.setIsAuth(false)      
     }
+
+    const deleteUser = async () => {
+      let result = await fetch(`/api/v1/user/${currentUser.id}`, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      setCurrentUser(null)
+      props.value.setIsAuth(false)
+    };
 
     const values = {
         registerNewUser,
@@ -62,7 +72,9 @@ const LoginProvider = (props) => {
         logoutUser,
         loginState, 
         setLoginState,
-        currentUser
+        currentUser,
+        setCurrentUser,
+        deleteUser
     };    
 
     return (

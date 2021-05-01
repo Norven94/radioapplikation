@@ -81,4 +81,36 @@ const register = (req, res) => {
   });
 };
 
-module.exports = { whoami, login, logout, register };
+const changeUserDetails = (req, res) => {
+  let query = `UPDATE users SET userName = $userName, county = $county WHERE id = $id`;
+  let params = {
+    $userName: req.body.userName,
+    $county: req.body.county,
+    $id: req.params.userId
+  };
+  db.run(query, params, function (err) {
+    res.json({ success: "User update successfull", changes: this.changes });
+    return;
+  });
+}
+
+const getUserDetails = (req, res) => {
+  let query = `SELECT * FROM users WHERE id = $id`;
+  let params = {
+    $id: req.params.userId
+  };
+  db.get(query, params, (err, user) => {
+    res.json(user);
+  });
+}
+
+const deleteUser = (req, res) => {
+  let query = `DELETE FROM users WHERE id = $id`;
+  let params = { $id: req.params.userId };
+
+  db.run(query, params, function (err) {
+    res.json({ success: "User has been deleted", changes: this.changes });
+  });
+};
+
+module.exports = { whoami, login, logout, register, changeUserDetails, getUserDetails, deleteUser };

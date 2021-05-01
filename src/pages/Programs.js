@@ -37,15 +37,15 @@ export default function Programs() {
     if (programs && categories && channels) {
         content = (
             <div className="programs">
-                <div className="filterContainer">
-                    <select className="categories" onChange={handleCategoryChange}>
+                <div className={styles.filterContainer}>
+                    <select className={styles.categories} onChange={handleCategoryChange}>
                     {categories.map(category => {
                         return (
                             <option key={category.id} value={category.id}>{category.name}</option>
                         )
                     })}
                     </select>
-                    <select className="channels" onChange={handleChannelChange}>
+                    <select className={styles.channels} onChange={handleChannelChange}>
                     {channels.map(channel => {
                         return (
                             <option key={channel.id} value={channel.id}>{channel.name}</option>

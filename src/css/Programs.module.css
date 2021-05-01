@@ -4,6 +4,14 @@
     margin: 10px;    
 }
 
+.filterContainer {
+    width: 40%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    margin: 0 auto; 
+}
+
 .programBox {
     display: grid;
     grid-template-columns: 20% 80%;
@@ -40,4 +48,16 @@
     top: 5px;
     right: 10px;
     width: 16px;
+}
+
+@media (max-width: 768px) {
+    .programsContainer {
+        grid-template-columns: 1fr;
+    }    
+}
+
+@media (max-width: 576px) {
+    .filterContainer {
+        grid-template-columns: 1fr;
+    }
 }

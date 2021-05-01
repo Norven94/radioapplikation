@@ -8,7 +8,7 @@ const getFavoriteChannels = (req, res) => {
     ON users.id = usersXchannels.usersId 
     AND favoriteChannels.channelId = usersXchannels.channelsId
     WHERE users.id = $usersId`
-    let params = {$usersId: req.params.usersId}
+    let params = { $usersId: req.params.usersId }
     db.all(query, params, (err, channels) => {
         if (err) {
             res.status(400).json({ error: err });
@@ -22,7 +22,7 @@ const getFavoritePrograms = (req, res) => {
     ON users.id = usersXprograms.usersId 
     AND favoritePrograms.programId = usersXprograms.programsId
     WHERE users.id = $usersId`
-    let params = {$usersId: req.params.usersId}
+    let params = { $usersId: req.params.usersId }
     db.all(query, params, (err, channels) => {
         if (err) {
             res.status(400).json({ error: err });
@@ -32,51 +32,66 @@ const getFavoritePrograms = (req, res) => {
     });
 }
 
-const addFavoriteChannel = (req, res) => {
-    //Check if channel already exists
-    let query = `SELECT * FROM favoriteChannels WHERE channelId = $channelId`;
-    let params = { $channelId: req.body.channelsId };
-    db.get(query, params, (err, channelExist) => {
-        if (channelExist) {
-            console.log("channel already exist in favoriteChannels table");
-            //If channel already exists just try to connect the user with the channel
-            query = `INSERT INTO usersXchannels (usersId, channelsId) VALUES ($usersId, $channelsId)`
-            params = {
-                $usersId: req.body.usersId,
-                $channelsId: req.body.channelsId
-            }
+const toggleFavoriteChannel = (req, res) => {
+    //Check if channel is already a favorite of the user 
+    let query = `SELECT * FROM usersXchannels WHERE channelsId = $channelsId AND usersId = $usersId`;
+    let params = {
+        $channelsId: req.body.channelsId,
+        $usersId: req.body.usersId
+    };
+    db.get(query, params, (err, favoriteExist) => {
+        if (favoriteExist) {
+            //If channel is already a favorite then remove it
+            query = `DELETE FROM usersXchannels WHERE channelsId = $channelsId AND usersId = $usersId`;
             db.run(query, params, function (err) {
-                if (err) {
-                    res.status(400).json({ error: err });
-                    return;
-                }
-                res.json({ success: "Favorite channel and user have been connected", lastID: this.lastID });
+                res.json({ success: "Channel have been removed from favorites", changes: this.changes });
             });
         } else {
-            //If channel does not already exists, then first add it to the favoriteChannels table
-            query = `INSERT INTO favoriteChannels (channelId, name) VALUES ($channelId, $name)`
-            params = {
-                $channelId: req.body.channelsId,
-                $name: req.body.name
-            }
-            db.run(query, params, function (err) {
-                if (err) {
-                    res.status(400).json({ error: err });
-                    return;
-                }
-                //After the channel have been added to the channel table then connect the channel and the user
-                query = `INSERT INTO usersXchannels (usersId, channelsId) VALUES ($usersId, $channelsId)`
-                params = {
-                    $usersId: req.body.usersId,
-                    $channelsId: req.body.channelsId
-                }
-                db.run(query, params, function (err) {
-                    if (err) {
-                        res.status(400).json({ error: err });
-                        return;
+            //Check if channel already exists
+            query = `SELECT * FROM favoriteChannels WHERE channelId = $channelId`;
+            params = { $channelId: req.body.channelsId };
+            db.get(query, params, (err, channelExist) => {
+                if (channelExist) {
+                    //If channel already exists just try to connect the user with the channel
+                    query = `INSERT INTO usersXchannels (usersId, channelsId) VALUES ($usersId, $channelsId)`
+                    params = {
+                        $usersId: req.body.usersId,
+                        $channelsId: req.body.channelsId
                     }
-                    res.json({ success: "Favorite channel and user have been connected", lastID: this.lastID });
-                });
+                    db.run(query, params, function (err) {
+                        if (err) {
+                            res.status(400).json({ error: err });
+                            return;
+                        }
+                        res.json({ success: "Favorite channel and user have been connected", lastID: this.lastID });
+                    });
+                } else {
+                    //If channel does not already exists, then first add it to the favoriteChannels table
+                    query = `INSERT INTO favoriteChannels (channelId, name) VALUES ($channelId, $name)`
+                    params = {
+                        $channelId: req.body.channelsId,
+                        $name: req.body.name
+                    }
+                    db.run(query, params, function (err) {
+                        if (err) {
+                            res.status(400).json({ error: err });
+                            return;
+                        }
+                        //After the channel have been added to the channel table then connect the channel and the user
+                        query = `INSERT INTO usersXchannels (usersId, channelsId) VALUES ($usersId, $channelsId)`
+                        params = {
+                            $usersId: req.body.usersId,
+                            $channelsId: req.body.channelsId
+                        }
+                        db.run(query, params, function (err) {
+                            if (err) {
+                                res.status(400).json({ error: err });
+                                return;
+                            }
+                            res.json({ success: "Favorite channel and user have been connected", lastID: this.lastID });
+                        });
+                    });
+                }
             });
         }
     });
@@ -135,6 +150,6 @@ const addFavoriteProgram = (req, res) => {
 module.exports = {
     getFavoriteChannels,
     getFavoritePrograms,
-    addFavoriteChannel,
+    toggleFavoriteChannel,
     addFavoriteProgram
 };
