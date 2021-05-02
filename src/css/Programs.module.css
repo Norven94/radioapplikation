@@ -1,23 +1,25 @@
-.categoryBox {
-    display: inline-block;
-    background-color: darkcyan;
-    padding: 5px 10px;
-    margin: 10px;
-    border-radius: 6px;
-}
-
 .programsContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 10px;    
+    margin: 20px;
+    column-gap: 20px; 
+    row-gap: 20px;   
+}
+
+.filterContainer {
+    width: 40%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    margin: 0 auto; 
 }
 
 .programBox {
     display: grid;
     grid-template-columns: 20% 80%;
-    margin: 10px;
     border-radius: 6px;
-    box-shadow: 4px 4px 5px rgba(90, 90, 90, 0.219);
+    background-color: #455a64;
+    position: relative;
 }
 
 .programBox img {
@@ -39,4 +41,38 @@
 .programDesc p {
     font-size: 10px;
     margin: 0;
+}
+
+.heartIcon {    
+    color: white;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 16px;
+}
+
+@media (max-width: 768px) {
+    .programsContainer {
+        grid-template-columns: 1fr;
+    }    
+}
+
+@media (max-width: 576px) {
+    .filterContainer {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .programBox {
+        grid-template-columns: 1fr;
+    }
+    .programBox img {
+        border-top-right-radius: 6px;
+        border-bottom-left-radius: 0px;
+    }
+    .programDesc {
+        margin: 10px 10px;
+    }
+    .programDesc p {
+        font-size: 14px;
+    }
 }

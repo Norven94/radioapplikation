@@ -1,34 +1,62 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProgramsContext } from "../contexts/ProgramsProvider"
-import styles from "../css/Programs.module.css"
-//import { useHistory } from "react-router";
+import { ChannelsContext } from "../contexts/ChannelsProvider"
+import styles from "../css/Programs.module.css";
+import ProgramCard from "../components/ProgramCard"
 
 export default function Programs() {
-    const { programs, categories } = useContext(ProgramsContext);
+    const { programs, categories, fetchFilteredPrograms, filteredPrograms } = useContext(ProgramsContext);
+    const { channels } = useContext(ChannelsContext);
+    const [category, setCategory] = useState("")
+    const [channel, setChannel] = useState("")
+
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value)
+    }
+    const handleChannelChange = (e) => {
+        setChannel(e.target.value)
+    }
+
+    useEffect(() => {
+        setCategory(2);
+        setChannel(132);
+    },[])
+
+    useEffect(() => {
+        fetchFilteredPrograms(channel, category);
+    },[channel, category])
+
+    let contentPrograms = [];
+    if (filteredPrograms) {
+        contentPrograms = filteredPrograms
+    } else {
+        contentPrograms = programs
+    }
 
     let content = "";
-    if (programs && categories) {
-        console.log(programs);
-        console.log(categories);
+    if (programs && categories && channels) {
         content = (
             <div className="programs">
-                <div className="filterContainer">
+                <div className={styles.filterContainer}>
+                    <select className={styles.categories} onChange={handleCategoryChange}>
                     {categories.map(category => {
                         return (
-                            <span key={category.id} className={styles.categoryBox}>{category.name}</span>
+                            <option key={category.id} value={category.id}>{category.name}</option>
                         )
                     })}
+                    </select>
+                    <select className={styles.channels} onChange={handleChannelChange}>
+                    {channels.map(channel => {
+                        return (
+                            <option key={channel.id} value={channel.id}>{channel.name}</option>
+                        )
+                    })}
+                    </select>
                 </div>
                 <div className={styles.programsContainer}>
-                    {programs.map(program => {
+                    {contentPrograms.map((program, i) => {
                         return (
-                            <div className={styles.programBox}>
-                                <img src={program.programimage}/>
-                                <div className={styles.programDesc}>
-                                    <h3>{program.name}</h3>
-                                    <p>{program.description}</p>
-                                </div>
-                            </div>
+                            <ProgramCard key={i} program={program} />                            
                         )
                     })}
                 </div>

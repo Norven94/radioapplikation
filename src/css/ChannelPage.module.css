@@ -1,0 +1,50 @@
+.datepicker {
+    margin: 20px 20px;
+}
+
+.scheduleContainer {
+    margin: 0 20px;
+    height: 70vh;
+    width: 400px;
+    overflow-y: scroll;
+}
+
+.programContainer {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    background-color: #455a64;
+    border-radius: 6px; 
+    margin: 20px 20px 20px 0;   
+    height: 110px;
+}
+
+.programContainer img {
+    height: 110px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.noImage {
+    margin: auto auto;
+    display: block;
+    position: inherit;    
+}
+
+.programDesc {
+    margin: auto 10px;
+}
+
+.programDesc h3 {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.programDesc p {
+    font-size: 10px;
+    width: 230px;
+    margin: 0;
+}
+
+.programDesc span {
+    font-size: 12px;
+}

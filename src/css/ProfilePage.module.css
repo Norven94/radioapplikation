@@ -1,0 +1,83 @@
+.profilePage {
+    margin: 0 20px;
+}
+
+.programsContainer, .channelsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.profilePage .userIntro {
+    text-align: center;
+}
+
+.settingsContainer {
+    display: grid;
+    grid-template-columns: 30% 60% 10%;
+    column-gap: 20px;
+    width: 50%;
+}
+
+.settingsContainer select {
+    margin-top: 0;
+    height: 40px;
+}
+
+.settingsContainer input {
+    margin-top: 0;
+    height: 20px;
+}
+
+.btnSave {
+    text-decoration: none;
+    display: inline;
+    font-weight: 700;
+    color: white;
+    background-color: #455a64;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: .3s;
+    cursor: pointer;
+    width: 140px;
+}
+
+.btnSave:hover {
+    background-color: #607179;
+}
+
+.btnRemove {    
+    margin: 20px 0;
+    background-color: rgb(172, 33, 33);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: .3s;
+    width: 140px;
+}
+
+.btnRemove:hover {
+    background-color: rgb(199, 38, 38)
+}
+
+@media (max-width: 768px) {
+    .programsContainer, .channelsContainer {
+        grid-template-columns: 1fr;
+    }
+    .settingsContainer {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+        max-width: 200px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .programsContainer, .channelsContainer {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

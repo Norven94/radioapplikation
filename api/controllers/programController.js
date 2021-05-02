@@ -19,8 +19,17 @@ const getAllProgramCategories = async (req, res) => {
     res.json(categories);
 }
 
+const filterProgramCategories = async (req, res) => {
+  let categories = await fetch(
+      `http://api.sr.se/api/v2/programs/index?${json}&${paginationFalse}&channelid=${req.params.channelId}&programcategoryid=${req.params.catId}` 
+  )
+  categories = await categories.json();
+  res.json(categories); 
+}
+
 
 module.exports = {
   getAllPrograms,
-  getAllProgramCategories
+  getAllProgramCategories,
+  filterProgramCategories
 };
