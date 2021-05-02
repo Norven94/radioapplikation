@@ -27,7 +27,6 @@ export default function ChannelPage(props) {
 
     let content = "";
     if (channelSchedule && channelSchedule.length !== 0) {
-        console.log(channelSchedule)
         content = (
             <div className={styles.schedule}>
                 <div className={styles.datepicker}>
@@ -56,6 +55,7 @@ export default function ChannelPage(props) {
 
     return (
         <div className="channelPage">
+            <h1>Tablå</h1>
             {content}
         </div>
     )

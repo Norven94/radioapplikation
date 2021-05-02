@@ -4,6 +4,7 @@ import { ProfileContext } from "../contexts/ProfileProvider";
 import { LoginContext } from "../contexts/LoginProvider";
 import ChannelCard from "../components/ChannelCard";
 import ProgramCard from "../components/ProgramCard";
+import styles from "../css/ProfilePage.module.css";
 
 export default function Profile () {
     const history = useHistory()
@@ -44,9 +45,11 @@ export default function Profile () {
     let contentPrograms = "";
     if (favoritePrograms) {
         contentPrograms = (
-            <div>{favoritePrograms.map((program, i) => (
-                <ProgramCard key={i} program={program}/>
-            ))}</div>
+            <div className={styles.programsContainer}>
+                {favoritePrograms.map((program, i) => (
+                    <ProgramCard key={i} program={program}/>
+                ))}
+            </div>
         );
     } else {
         contentPrograms = (
@@ -57,9 +60,11 @@ export default function Profile () {
     let contentChannels = "";
     if (favoriteChannels) {
         contentChannels = (
-            <div>{favoriteChannels.map((channel,i) => (
-                <ChannelCard key={i} channel={channel}/>
-            ))}</div>
+            <div className={styles.channelsContainer}>
+                {favoriteChannels.map((channel,i) => (
+                    <ChannelCard key={i} channel={channel}/>
+                ))}
+            </div>
         );
     } else {
         contentChannels = (
@@ -68,30 +73,33 @@ export default function Profile () {
     }
 
     return (
-        <div className="Profile">
+        <div className={styles.profilePage}>
             <h1>Min profil</h1>
-            <p>Hej {currentUser.userName} här kan du se dina favorit kanaler/program samt ändra dina uppgifter</p>
+            <p className={styles.userIntro}>Hej {currentUser.userName} här kan du se dina favorit kanaler/program samt ändra dina uppgifter</p>
             <h2>Favorit program</h2>
             {contentPrograms}
             <h2>Favorit kanaler</h2>
             {contentChannels}
+            <h2>Användar inställningar</h2>
             <form onSubmit={saveSettings}>
-                <select className="county" onChange={handleCountyChange}>
-                    {counties.map((county,i) => {
-                        if (currentUser.county === county) {
+                <div className={styles.settingsContainer}>
+                    <select className="county" onChange={handleCountyChange}>
+                        {counties.map((county,i) => {
+                            if (currentUser.county === county) {
+                                return (
+                                    <option key="i" selected>{county}</option>                    
+                                )
+                            }
                             return (
-                                <option key="i" selected>{county}</option>                    
+                                <option key="i">{county}</option>                    
                             )
-                        }
-                        return (
-                            <option key="i">{county}</option>                    
-                        )
-                    })}
-                </select>
-                <input placeholder="Nytt användarnamn..." onChange={handleUserNameChange}/>
-                <button>Spara</button>
+                        })}
+                    </select>
+                    <input placeholder="Nytt användarnamn..." onChange={handleUserNameChange}/>                
+                    <button className={styles.btnSave}>Spara</button>
+                </div>
             </form>
-            <button onClick={removeAccount}>Ta bort konto</button>
+            <button className={styles.btnRemove} onClick={removeAccount}>Ta bort konto</button>
         </div>
     )
 }

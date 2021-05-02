@@ -36,3 +36,23 @@
     right: 10px;
     width: 16px;
 }
+
+@media (max-width: 576px) {
+    .channelCard {
+        grid-template-columns: 1fr;
+    }
+
+    .channelCard img {
+        border-top-right-radius: 6px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .descContainer {
+        margin: 10px 10px;
+    }
+
+    .channelCard p {
+        width: 100%;
+        font-size: 12px;
+    }
+}

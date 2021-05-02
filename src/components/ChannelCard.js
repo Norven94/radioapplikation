@@ -25,9 +25,9 @@ export default function ChannelCard (props) {
         <div className={styles.channelCard}> 
             <i onClick={addToFavorites} className={styles.heartIcon}>{heart}</i>           
             <img src={props.channel.image} />
-            <div>
-            <h2>{props.channel.name}</h2>
-            <p>{props.channel.tagline}</p>
+            <div className={styles.descContainer}>
+                <h2>{props.channel.name}</h2>
+                <p>{props.channel.tagline}</p>
             </div>           
         </div>
     )

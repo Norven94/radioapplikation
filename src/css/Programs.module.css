@@ -1,7 +1,9 @@
 .programsContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 10px;    
+    margin: 20px;
+    column-gap: 20px; 
+    row-gap: 20px;   
 }
 
 .filterContainer {
@@ -15,7 +17,6 @@
 .programBox {
     display: grid;
     grid-template-columns: 20% 80%;
-    margin: 10px;
     border-radius: 6px;
     background-color: #455a64;
     position: relative;
@@ -58,6 +59,20 @@
 
 @media (max-width: 576px) {
     .filterContainer {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .programBox {
         grid-template-columns: 1fr;
+    }
+    .programBox img {
+        border-top-right-radius: 6px;
+        border-bottom-left-radius: 0px;
+    }
+    .programDesc {
+        margin: 10px 10px;
+    }
+    .programDesc p {
+        font-size: 14px;
     }
 }
